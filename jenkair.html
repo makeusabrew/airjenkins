@@ -4,11 +4,13 @@
         <script src="lib/deps/AIRAliases.js"></script>
         <script>
             var appLoad = function() {
-                var configFile = air.File.applicationStorageDirectory.resolvePath("lib/data/config.json");
-                var stream = new air.FileStream();
-                stream.open(configFile, air.FileMode.READ);
-                var configData = stream.readMultiByte(stream.bytesAvailable, air.File.systemCharset);
-                alert(configData);
+                var configFile = air.File.applicationDirectory.resolvePath("lib/data/config.json");
+                if (configFile.exists) {
+                    var stream = new air.FileStream();
+                    stream.open(configFile, air.FileMode.READ);
+                    var configData = stream.readMultiByte(stream.bytesAvailable, air.File.systemCharset);
+                    configData = JSON.parse(configData);
+                }
             }
         </script>
     </head>
