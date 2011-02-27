@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Jenkins On Air</title>
+        <script src="lib/deps/AIRAliases.js"></script>
+        <script>
+            var appLoad = function() {
+                var config = air.File.applicationStorageDirectory.resolvePath("lib/data/config.json");
+                alert(config);
+            }
+        </script>
+    </head>
+    <body onload="appLoad();">
+        <h1>Jenkins On Air</h1>
+    </body>
+</html>
