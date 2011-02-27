@@ -1,16 +1,27 @@
 <html>
     <head>
         <title>Jenkins On Air</title>
+        <script src="lib/deps/jquery.js"></script>
         <script src="lib/deps/AIRAliases.js"></script>
+        <script src="lib/app/config.js"></script>
+        <script src="lib/app/airjenkins.js"></script>
         <script>
             var appLoad = function() {
                 var configFile = air.File.applicationDirectory.resolvePath("lib/data/config.json");
-                if (configFile.exists) {
-                    var stream = new air.FileStream();
-                    stream.open(configFile, air.FileMode.READ);
-                    var configData = stream.readMultiByte(stream.bytesAvailable, air.File.systemCharset);
-                    configData = JSON.parse(configData);
+                if (!Config.loadFromFile("lib/data/config.json")) {
+                    alert("Could not load config file :(");
+                    return false;
                 }
+
+                var jenkair = new AirJenkins();
+                jenkair.getJobs(function(jobs) {
+                    for (var i = 0; i < jobs.length; i++) {
+                        var job = jobs[i];
+                        $("body").append(
+                            "<div>"+job.name+"</div>"
+                        );
+                    }
+                });
             }
         </script>
     </head>
